@@ -153,3 +153,31 @@ def loginProfile():
                 conn.close()                
                 print("Invalid password entered.")
                 break
+
+def updatePassword():
+    conn = connect()
+    cursor = conn.cursor()
+    while True:
+        username = input("Enter your username: ")
+        password = input("Enter your account password: ")
+        cursor.execute("SELECT master_password FROM master_user WHERE username=%s",(username,))
+        record = cursor.fetchone()
+        if record is not None:
+            if password==record[0]:
+                while True:
+                    new_password = input("Enter new password: ")
+                    confirm_newpassword = input("Re-enter new password: ")
+                    if new_password==confirm_newpassword:
+                        cursor.execute("UPDATE master_user SET master_password=%s WHERE username=%s",(confirm_newpassword,username,))
+                        print("Password updated successfully!")
+                        break
+                    else:
+                        print("Entered passwords don't match!\nPlease try again.")
+                break
+            else:
+                    print("Invalid username or password entered!\nPlease try again.")
+        else:
+            print("Account with the given credentials does not exist!\nPlease try again.")
+    conn.commit()
+    cursor.close()
+    conn.close()
