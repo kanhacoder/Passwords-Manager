@@ -1,11 +1,10 @@
 import database
 conn = database.connect()
 print("Welcome to passwords manager!")
-conn = database.connect()
-cursor = conn.cursor()
-cursor.execute("")
 while True:
-    print("1. Create profile.\n2. Login to existing profile\n3. Update master password of existing profile.\n4. Exit passwords manager.")
+    print("1. Create profile.\n2. Login to existing profile" \
+    "\n3. Update master password of existing profile.\n4. Forgot Password" \
+    "\n5. Exit passwords manager.")
     choice = int(input("Please enter your choice from 1,2,3 or 4: "))
     if choice==1:
         database.createProfile()
@@ -16,7 +15,7 @@ while True:
     elif choice==3:
         database.updatePassword()
         print("")
-    elif choice==4:
+    elif choice==5:
         print("")
         print("Thank you for using passwords manager!")
         break
