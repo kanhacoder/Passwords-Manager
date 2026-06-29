@@ -181,3 +181,32 @@ def updatePassword():
     conn.commit()
     cursor.close()
     conn.close()
+
+def forgotPassword():
+    conn = connect()
+    cursor = conn.cursor()
+    while True:
+        username = input("Enter username of your account: ")
+        cursor.execute("SELECT * FROM master_user WHERE username=%s",(username,))
+        record = cursor.fetchone()
+        if record is not None:
+            securityanswer = input(record[3]+" : ")
+            if securityanswer.strip().lower()==record[4].strip().lower():
+                newpassword = input("Enter new password: ")
+                confirmpassword = input("Re-enter new password: ")
+                if newpassword==confirmpassword:
+                    if newpassword==record[2]:
+                        print("New password cannot be same as current password.\nPlease try again.")
+                    else:
+                        cursor.execute("UPDATE master_user SET master_password=%s WHERE username=%s",(newpassword,username,))
+                        print("Password updated successfully!")
+                        break
+                else:
+                    print("New password should match Re-entered password.\nPlease try again.")
+            else:
+                print("Your answer to the security question is incorrect.\nPlease try again.")
+        else:
+            print("Account with entered username does not exist.\nPlease try again.")
+    conn.commit()
+    cursor.close()
+    conn.close()

@@ -15,6 +15,8 @@ while True:
     elif choice==3:
         database.updatePassword()
         print("")
+    elif choice==4:
+        database.forgotPassword()
     elif choice==5:
         print("")
         print("Thank you for using passwords manager!")
