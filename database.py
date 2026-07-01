@@ -38,7 +38,7 @@ def addAccount(pid):
     password = input("Enter password: ")
     conn = connect()
     cursor = conn.cursor()
-    cursor.execute("INSERT INTO passwords(profile_id,website,username,password) VALUES(%s,%s,%s,%s)",(pid,platform,username,password))
+    cursor.execute("INSERT INTO passwords(profile_id,website,username,password) VALUES(%s,%s,%s,%s)",(pid,platform,username,password,))
     conn.commit()
     cursor.close()
     conn.close()
@@ -82,7 +82,7 @@ def updatePassword(pid):
         else:
             username = input("Enter new username(Enter original username if unchanged): ")
             password = input("Enter new password(Enter original password if unchanged): ")
-            cursor.execute("UPDATE passwords SET username=%s,password=%s WHERE website=%s AND profile_id=%s",(username,password,platform,pid))
+            cursor.execute("UPDATE passwords SET username=%s,password=%s WHERE website=%s AND profile_id=%s",(username,password,platform,pid,))
             break
     conn.commit()
     cursor.close()
